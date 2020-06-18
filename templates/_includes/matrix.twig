@@ -1,0 +1,138 @@
+{% for block in entry.elements.all() %}
+
+{% if block.type == 'texteCentre' %}
+<div class="projectpart textecentre js-reveal">
+	<div class="container-fluid">
+		<h2>{{ block.titreTexteCentre }}</h2>
+		{{ block.texteCentre }}
+	</div>
+</div>
+
+{% elseif block.type == 'grandeImage' %}
+<div class="projectpartie js-reveal">
+	<div class="container-fluid">
+		{% for image in block.grandeImage.all() %}
+
+		<img src="{{ image.getUrl('col12') }}" srcset="{{ image.getUrl('col12') }} 1x,
+			                     {{ image.getUrl('col122x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('col12')}}"
+			height="{{ image.getHeight('col12')}}" />
+
+
+		{% endfor %}
+	</div>
+</div>
+
+{% elseif block.type == 'deuxImages' %}
+<div class="projectpartie">
+	<div class="container-fluid">
+		<div class="row">
+			{% for image in block.deuximages.all() %}
+			<div class="col-md-6 js-reveal">
+				<figure>
+					<img src="{{ image.getUrl('col6') }}" srcset="{{ image.getUrl('col6') }} 1x,
+			                     {{ image.getUrl('col62x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('col6')}}"
+						height="{{ image.getHeight('col6')}}" />
+				</figure>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% elseif block.type == 'imageFull' %}
+<div class="projectpartie js-reveal">
+	{% for image in block.imageFull.all() %}
+	<div style="background-image:url('{{ image.url }}');" class="fullimage"></div>
+	{% endfor %}
+</div>
+
+{% elseif block.type == 'video' %}
+<div class="projectpartie js-reveal">
+	<div class="container-fluid">
+		{% for video in block.video.all() %}
+		<video class="col-md-12" controls>
+			<source src="{{ video.url }}" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+		{% endfor %}
+	</div>
+</div>
+
+{% elseif block.type == 'troisImages' %}
+<div class="projectpartie">
+	<div class="container-fluid">
+		<div class="row">
+
+			{% for image in block.images.all() %}
+
+			<div class="col-md-4 js-reveal">
+				<figure>
+					<img src="{{ image.getUrl('col4') }}" srcset="{{ image.getUrl('col4') }} 1x,
+			                     {{ image.getUrl('col42x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('col4')}}"
+						height="{{ image.getHeight('col4')}}" />
+
+				</figure>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% elseif block.type == 'texteImage' %}
+<div class="projectpartie text-image">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 textpart">
+				<div class="contentblock js-reveal">
+					<span class="l-title ">{{ block.preTitreTexteImage }}</span>
+					<h2>{{ block.titreTexteImage }}</h2>
+					<div class="text">
+						{{ block.texteTexteImage }}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 js-reveal imgpart">
+				{% for image in block.imagetexteImage.all() %}
+				<img src="{{ image.getUrl('col6') }}" srcset="{{ image.getUrl('col6') }} 1x,
+						                     {{ image.getUrl('col62x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('col6')}}"
+					height="{{ image.getHeight('col6')}}" />
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% elseif block.type == 'imageTexte' %}
+<div class="projectpartie text-image">
+	<div class="container-fluid">
+		<div class="row ">
+			<div class="col-md-6 js-reveal imgpart">
+				{% for image in block.imageImageTexte.all() %}
+				<img src="{{ image.getUrl('col6') }}" srcset="{{ image.getUrl('col6') }} 1x,
+						                     {{ image.getUrl('col62x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('col6')}}"
+					height="{{ image.getHeight('col6')}}" />
+				{% endfor %}
+			</div>
+			<div class="col-md-6 textpart">
+				<div class="contentblock js-reveal ">
+					<span class="l-title">{{ block.preTitreImageTexte }}</span>
+					<h2>{{ block.titreImageTexte }}</h2>
+					<div class="text">
+						{{ block.texteImageTexte }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% elseif block.type == 'embed' %}
+<div class="projectpartie js-reveal video" data-circle="js-circle-1">
+
+	<div class="container-fluid">
+		<div class="videocontainer">
+			{{ block.urlEmbed|raw }}
+		</div>
+	</div>
+	<div class="circle js-circle-1"></div>
+</div>
+{% endif %}
+{% endfor %}

@@ -1,0 +1,68 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+<main data-barba="container" data-barba-namespace="solutions">
+
+	<div class="hero">
+		<div class="container-fluid">
+
+			<div class="row">
+				<h1 class="offset-1">{{ entry.titre }}</h1>
+				<div class="description col-md-8 offset-3 is-animated">
+					{{ entry.introduction }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="solutions-list">
+
+		<div class="container-fluid">
+			{% set entries = craft.entries.section('solutions').all() %}
+			{% set count = 0 %}
+			{% for entry in entries %}
+			<div class="solution js-reveal">
+				<div class="row">
+
+					<div class="col-md-3">
+						{% set count = count + 1 %}
+						<span class="number">{{ count }}</span>
+					</div>
+					<div class="col-md-8">
+						<span class="l-title">{{ entry.preTitle }}</span>
+						<h2>{{ entry.title }}</h2>
+						<div class="solution__content">
+							{{ entry.descriptionSolution }}
+						</div>
+
+
+						{% set blocks = entry.listeSolution.all() %}
+						{% if blocks|length %}
+						<ul class="solution__list">
+							{% for block in blocks %}
+							<li> {{ block.item }}</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+			{% endfor %}
+
+
+
+
+
+
+		</div>
+		</section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "_layout" %}
+
+{% block content %}
+<main data-barba="container" data-barba-namespace="page">
+	<div class="hero">
+		<div class="container-fluid">
+
+			<div class="row">
+				<div class="offset-1 col-md-5">
+					<span class="l-title">{{ entry.title }}</span>
+					{% if entry.grandTitre|length %}
+					<h1>{{ entry.grandTitre}}</h1>
+					{% endif %}
+				</div>
+
+				{% if entry.imageIntroduction|length %}
+				{% set image = entry.imageIntroduction.one() %}
+				<div class="col-md-2 offset-1">
+					<img src="{{ image.getUrl('introPage') }}" alt="{{ image.title }}" />
+				</div>
+				{% endif %}
+
+				{% if entry.introduction|length %}
+				<div class="description col-md-8 offset-3 is-animated">
+					{{ entry.introduction }}
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+
+	<div class="container-fluid single-page">
+		{% include '_includes/matrix' %}
+	</div>
+</main>
+
+{% endblock %}

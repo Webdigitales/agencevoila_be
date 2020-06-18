@@ -1,0 +1,13 @@
+{% extends "_layout" %}
+
+{% set posts = craft.entries.section('blog').relatedTo(category).all() %}
+
+{% block content %}
+<section class="hero">
+	<div class="container">
+		<h1>Blog Posts in “{{ category.title }}”</h1>
+	</div>
+</section>
+
+{% include "_includes/listing" with { posts: posts } only %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "_layout" %}
+
+{% set posts = craft.entries.section('blog').all() %}
+
+{% block content %}
+
+<div class="hero">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-10 offset-1">
+				<h1>Blog</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="article-list">
+
+
+	{% include "_includes/listing" with { posts: posts } only %}
+</div>
+
+
+
+{% endblock %}

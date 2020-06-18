@@ -1,0 +1,128 @@
+{% extends "_layout" %}
+{% set bodyClass = 'menuwhite' %}
+
+
+{% block content %}
+
+
+<main data-barba="container" data-barba-namespace="{{ entry.title|replace({' ': ''}) }}">
+	<style>
+		.hero-project:after {
+			//background-color: {{ entry.couleur }}; 
+		}
+	</style>
+	<div class="project-single ">
+		<div class="hero-project is-animated" style="background-image:url(' {% if entry.imageProjet|length %}
+	    {% for image in entry.imageProjet.all() %}
+	     {{- image.getUrl('feature') -}}
+	    {% endfor %}
+	  {% endif %}
+	')">
+
+			<div class="hero-project__content">
+				<p class="slogan l-title">
+					{{- entry.slogan -}}
+				</p>
+				<h1>{{ entry.title }}</h1>
+
+			</div>
+
+		</div>
+
+		<div class="project-single__intro is-animated">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-7 offset-md-1 offset-sm-0">
+						<div class="intro-content js-reveal">
+							<h2 class="l-title">Description</h2>
+							{{ entry.description }}
+						</div>
+					</div>
+					<div class="col-md-3 offset-md-1 offset-sm-0 js-reveal">
+						<h2 class="l-title">Catégories</h2>
+						{% set categories = craft.categories.relatedTo(entry) %}
+						<ul class="categories">
+							{% for category in categories %}
+							<li><a href="{{ category.url }}">{{ category.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="project-single__content" style="background-color:{{ entry.couleur }};">
+
+			{% include '_includes/matrix' %}
+
+		</div>
+	</div>
+
+	<section class="other-project">
+		<div class="container-fluid">
+			<h1 class="sr-only">Autres Projets</h1>
+			<div class="row">
+
+				{% set params = craft.entries.section('projets').orderBy('postDate') %}
+				{% set prevEntry = entry.getPrev(params) %}
+				{% set nextEntry = entry.getNext(params) %}
+
+				{% if prevEntry|length %}
+				<div class="col-md-6">
+					<div class="tile" data-color="{{ prevEntry.couleur }}" data-circle="js-circle-1">
+						<a href="{{ prevEntry.url }}" data-stick-cursor>
+							{% if prevEntry.imageProjet|length %}
+							{% set image = prevEntry.imageProjet.one() %}
+							<div class="tile__image ">
+								<img src="{{ image.getUrl('next') }}" srcset="{{ image.getUrl('next') }} 1x,
+					                     {{ image.getUrl('next2x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('next')}}"
+									height="{{ image.getHeight('next')}}" />
+
+								<div class="circle js-circle-1"></div>
+
+							</div>
+
+
+							<span class="l-title">Projet précédent</span>
+							<h2 class="tile__title">{{ prevEntry.title }}</h2>
+
+							{% endif %}
+
+						</a>
+					</div>
+				</div>
+				{% endif %}
+
+				{% if nextEntry|length %}
+				<div class="col-md-6">
+					<div class="tile" data-color="{{ nextEntry.couleur }}" data-circle="js-circle-2">
+						<a href="{{ nextEntry.url }}" data-stick-cursor>
+							{% if nextEntry.imageProjet|length %}
+							{% set image = nextEntry.imageProjet.one() %}
+							<div class="tile__image ">
+								<img src="{{ image.getUrl('next') }}" srcset="{{ image.getUrl('next') }} 1x,
+				                     {{ image.getUrl('next2x') }} 2x" alt="{{ image.title }}" width="{{ image.getWidth('next')}}"
+									height="{{ image.getHeight('next')}}" />
+
+
+								<div class="circle js-circle-2"></div>
+							</div>
+
+
+							<span class="l-title">Projet suivant</span>
+							<h2 class="tile__title">{{ nextEntry.title }}</h2>
+							{% endif %}
+
+						</a>
+					</div>
+				</div>
+
+				{% endif %}
+
+
+
+			</div>
+		</div>
+	</section>
+</main>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "_layout" %}
+
+{% block content %}
+<main data-barba="container" data-barba-namespace="contact">
+	<section class="hero hero--contact">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<span class="l-title is-animated">{{ entry.preTitre}}</span>
+					<h1 class="text-4xl text-black font-display my-4 is-animated">{{ entry.titre }}</h1>
+					<div class="description is-animated">
+						{{ entry.description }}
+					</div>
+				</div>
+			</div>
+
+
+			<div class="contact-info">
+				<div class="row">
+					<div class="col-md-4 is-animated">
+						<h2 class="l-title">Questions générales</h2>
+
+						<span id="obf">
+							<script>document.getElementById("obf").innerHTML = "<n uers=\"znvygb:vasb@ntrapribvyn.or\" gnetrg=\"_oynax\">vasb@ntrapribvyn.or</n>".replace(/[a-zA-Z]/g, function (c) { return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26); }); document.body.appendChild(eo);</script>
+							<noscript><span
+									style="unicode-bidi:bidi-override;direction:rtl;">eb.aliovecnega@ofni</span></noscript></span>
+					</div>
+					<div class="col-md-4 is-animated">
+						<h2 class="l-title">Adresse</h2>
+						<a
+							href="https://www.google.com/maps/place/Rue+de+la+Croix+Limont+7b,+5590+Ciney/@50.3127664,5.1202323,17z/data=!3m1!4b1!4m5!3m4!1s0x47c1b756a16d12a9:0xf076b6798e260530!8m2!3d50.312763!4d5.122421">
+							<span>{{ siteInformation.rue }} {{ siteInformation.numero }}</span>
+							<span>{{ siteInformation.codePostale }} {{ siteInformation.ville }}</span>
+
+						</a>
+					</div>
+					<div class="col-md-4 is-animated">
+						<h2 class="l-title">Téléphone</h2>
+						<a
+							href="tel:{{ siteInformation.numeroDeTelephone }}">{{ siteInformation.numeroDeTelephone }}</a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+</main>
+{% endblock %}

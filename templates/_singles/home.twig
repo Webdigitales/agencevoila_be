@@ -1,0 +1,55 @@
+{% extends "_layout" %}
+
+{% block content %}
+<main data-barba="container" data-barba-namespace="home">
+	<section class="hero">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-10 offset-md-1 offset-sm-0">
+					<span class="l-title">{{ entry.preTitre }}</span>
+					<h1>{{ entry.titre }}</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{% set posts = craft.entries.section('projets').all() %}
+	<section class="projets-home">
+		<h1 class="sr-only">Nos projets</h1>
+		{% include "_includes/listingprojets" with { posts: posts } only %}
+	</section>
+
+	<section class="services">
+		<div class="container-fluid">
+			<div class="row"></div>
+			<h1 class="js-reveal">{{ entry.titreApproche }}</h1>
+			<p class="js-reveal">{{ entry.texteApproche }} </p>
+			<div class="services__list">
+				<h2 class="l-title js-reveal">Nos services</h2>
+				<div class="row">
+					{% set entries = craft.entries.section('solutions').all() %}
+					{% for entry in entries %}
+					<div class="col-md-4 js-reveal">
+						<h3>{{ entry.title }}</h3>
+						{% set blocks = entry.listeSolution.all() %}
+						{% if blocks|length %}
+						<ul>
+							{% for block in blocks %}
+							<li> {{ block.item }}</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+				{% set relatedEntries = entry.lienPage.all() %}
+				{% if relatedEntries|length %}
+				{% for rel in relatedEntries %}
+				<a href="{{ rel.url }}" class="btn js-reveal">Voir tous nos services</a>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</section>
+</main>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "_layout" %}
+
+{% set featureImage = {
+  mode: 'crop',
+  width: 1200,
+  height: 450,
+  quality: 100
+} %}
+
+{% block content %}
+
+
+<section class="single-article">
+	<div class="container">
+		{% if entry.featureImage|length %}
+		{% for image in entry.featureImage.all() %}
+		<img src="{{ image.getUrl(featureImage) }}" alt="{{ image.title }}" />
+		{% endfor %}
+		{% endif %}
+		<div class="single-article__content">
+			<time class="l-title"
+				datetime="{{ entry.postDate | date('Y-m-d') }}">{{ entry.postDate | date('d M Y') }}</time>
+			<h1>{{ entry.title }}</h1>
+			{% include "_includes/post-blocks" with { blocks: entry.postContent.all() } only %}
+			{# display post categories #}
+			{% if entry.postCategories|length %}
+			<div class="border-t py-2 mb-6">
+				{% for category in entry.postCategories.all() %}
+				<a href="{{ category.url }}" class="inline-block border rounded px-2 py-1 text-sm">
+					{{- category.title -}}
+				</a>
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</section>
+
+{% set posts = craft.entries.section('blog').limit(3) %}
+<section class="other-article">
+	<div class="container">
+		<h1 class="l-title">Autres articles</h1>
+		<div class="row article-list">
+
+			{% for post in posts %}
+			<div class="col-md-4 ">
+				<article class="article">
+					<a href="{{ post.url }}">
+						{% if post.featureImage|length %}
+						{% set image = post.featureImage.one() %}
+						<img src="{{ image.getUrl({ width: 696, height: 370}) }}" alt="{{ image.title }}" class="block"
+							width="696" height="370" />
+					</a>
+					{% endif %}
+					<div class="article__content">
+						<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+					</div>
+				</article>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+<div class="container-fluid">
+	<div class="row">
+		{% for post in posts %}
+		<div class="col-md-4">
+			<article class=" article">
+
+				{% if post.featureImage|length %}
+				{% set image = post.featureImage.one() %}
+				<a href="{{ post.url }}">
+					<img src="{{ image.getUrl({ width: 696, height: 370}) }}" alt="{{ image.title }}" class="block"
+						width="696" height="370" />
+				</a>
+				{% endif %}
+				<div class="article__content">
+					<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+					<p class="resume">{{ post.resume }}</p>
+					<a href="{{ post.url }}" class="btn pull-right">Lire l'article</a>
+				</div>
+
+
+			</article>
+		</div>
+		{% endfor %}
+	</div>
+</div>

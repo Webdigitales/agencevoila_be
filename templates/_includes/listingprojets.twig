@@ -1,0 +1,31 @@
+<section class="projet-list">
+	<div class="container-fluid">
+		<h1 class="sr-only">Projets</h1>
+		<div class="masonry">
+			{% set count = 0 %}
+			{% for post in posts %}
+			{% set count = count + 1 %}
+			<div class="tile" data-color="{{ post.couleur }}" data-circle="js-circle-{{ count }}">
+				<a href="{{ post.url }}" data-stick-cursor>
+					{% if post.imageProjet|length %}
+					{% set image = post.imageProjet.one() %}
+					<div class="tile__image ">
+						<img src="{{ image.getUrl('projetsThumb') }}" srcset="{{ image.getUrl('projetsThumb') }} 1x,
+			                     {{ image.getUrl('projetsThumb2x') }} 2x" alt="{{ image.title }}"
+							width="{{ image.getWidth('projetsThumb')}}" height="{{ image.getHeight('projetsThumb')}}" />
+						<div class="circle js-circle-{{ count }}"></div>
+					</div>
+					{% endif %}
+					<h2 class="tile__title">{{ post.title }}</h2>
+					{% set categories = craft.categories.relatedTo(post) %}
+					<ul class="cat">
+						{% for category in categories %}
+						<li>{{- category.title -}}</li>
+						{% endfor %}
+					</ul>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
