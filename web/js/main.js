@@ -197,16 +197,13 @@ function contentAnimation() {
 	tileHover();
 	var tl = gsap.timeline();
 	
-	mySplitText = new SplitText(".hero h1", {type:"words,chars"}), 
+/*	mySplitText = new SplitText(".hero h1", {type:"words,chars"}),
 	chars = mySplitText.chars; //an array of all the divs that wrap each character
 	gsap.set(".hero h1, .hero-project h1", {perspective: 400});
 	
 	tl.from(chars, {duration: 1, opacity:0, scale:0, y:80, rotationX:180, transformOrigin:"0% 50% -50",  ease:"back", stagger: 0.01});
 	tl.from('.is-animated', { duration: 0.5, translateY: 30, opacity: 0, stagger: 0.1 });
-	tl.from('.tile', { duration: 0.5, translateY: 30, opacity: 0, stagger: 0.1 }, "-=1");
-	
-	
-	
+	tl.from('.tile', { duration: 0.5, translateY: 30, opacity: 0, stagger: 0.1 }, "-=1");*/
 }
 
 $(function() {
